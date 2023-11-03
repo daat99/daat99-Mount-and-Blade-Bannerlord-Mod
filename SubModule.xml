@@ -1,0 +1,29 @@
+<Module>
+	<Name value="daat99"/>
+	<Id value="daat99"/>
+	<Version value="v1.2.4"/>
+	<SingleplayerModule value="true"/>
+	<MultiplayerModule value="false"/>
+	<DefaultModule value="false"/>
+	<!--Remove <Official value="false"/> if your game isn't starting with daat99 installed-->
+	<Official value="false"/>
+	<DependedModules>
+		<DependedModule Id="Native" DependentVersion="v1.2.4"/>
+		<DependedModule Id="SandBoxCore" DependentVersion="v1.2.4"/>
+		<DependedModule Id="CustomBattle" DependentVersion="v1.2.4"/>
+		<DependedModule Id="Sandbox" DependentVersion="v1.2.4"/>
+		<DependedModule Id="StoryMode" DependentVersion="v1.2.4"/>
+	</DependedModules>
+	<SubModules>
+		<SubModule>
+			<Name value="daat99"/>
+			<DLLName value="daat99.dll"/>
+			<SubModuleClassType value="daat99.daat99SubModule"/>
+			<Tags>
+				<Tag key="DedicatedServerType" value="none" />
+				<Tag key="IsNoRenderModeElement" value="false" />
+			</Tags>
+		</SubModule>
+	</SubModules>
+	<Xmls/>
+</Module>
