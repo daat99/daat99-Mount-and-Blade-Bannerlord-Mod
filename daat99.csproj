@@ -311,6 +311,8 @@
     <Compile Include="BattleSimulationPatch2.cs" />
     <Compile Include="BattleSimulationPatch.cs" />
     <Compile Include="Behaviors\Daat99PlayerTownVisitCampaignBehavior.cs" />
+    <Compile Include="Encyclopedia\EncyclopediaListClanLivingMemberComparer.cs" />
+    <Compile Include="ExtensionMethods\Vec3Extensions.cs" />
     <Compile Include="Models\BetterLootingModel.cs" />
     <Compile Include="BugFixes\Character.cs" />
     <Compile Include="BugFixes\DefaultDiplomacyModel.cs" />

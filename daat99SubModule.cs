@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.ViewModelCollection.GameMenu;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade;
@@ -13,14 +12,12 @@ using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Inventory;
 using TaleWorlds.CampaignSystem.ViewModelCollection.GameMenu.Recruitment;
-using TaleWorlds.Library;
-using TaleWorlds.CampaignSystem.TournamentGames;
 using System.Collections.Generic;
 using System.Text;
-using TaleWorlds.CampaignSystem.GameMenus;
 using daat99.BugFixes;
 using daat99.Behaviors;
 using System.Diagnostics;
+using TaleWorlds.Library;
 
 namespace daat99
 {
@@ -100,18 +97,21 @@ namespace daat99
 
 		private void announceTournaments(bool showInquery = false)
 		{
-			Dictionary<string, float> distanceTowns = new Dictionary<string, float>();
+			Dictionary<string, Tuple<Vec2, float>> distanceTowns = new Dictionary<string, Tuple<Vec2, float>>();
 			Vec3 playerLocation = Hero.MainHero.GetPosition();
 			foreach (Town town in Town.AllTowns)
 			{
 				if ( town.HasTournament && town.Settlement != null)
                 {
-					float distance = playerLocation.DistanceSquared(town.Settlement.GetPosition());
+					Vec3 townPosition = town.Settlement.GetPosition();
+					float distance = playerLocation.DistanceSquared(townPosition);
+					string direction = playerLocation.GetDirectionString(townPosition);
 					//TournamentGame tournament = Campaign.Current.TournamentManager.GetTournamentGame(town);
-					distanceTowns[$"{town.Name.ToString()} [{distance}]"] = distance;
+					distanceTowns[$"{town.Name.ToString()} [{distance}] {direction} in {town.OwnerClan.MapFaction.Name ?? town.OwnerClan.Name}"] = new Tuple<Vec2,float>(townPosition.AsVec2, distance);
                 }
 			}
-			var sortedDistanceTowns = from entry in distanceTowns orderby entry.Value ascending select entry;
+			var sortedDistanceTowns = distanceTowns.OrderBy(t => t.Value.Item2);
+//				from entry in distanceTowns orderby entry.Value.Item2 ascending select entry;
 			string message = "No tournaments found!";
 			int count = 0;
 			if (sortedDistanceTowns.Any())

@@ -58,11 +58,31 @@ namespace daat99
 	}
 	*/
 
+	/*
+		// TaleWorlds.CampaignSystem.CharacterDevelopment.DefaultPerks
+		using TaleWorlds.Core;
+		private void InitializeAll()
+	*/
+	//TrackerChaseSpeedFactor
+	[HarmonyPatch(typeof(DefaultPerks), "InitializeAll")]
+	public class DefaultPerks_InitializeAll
+	{
+		private static readonly float s_trackerChaseSpeedFactor = Settings.CampaignSettings.TrackerChaseSpeedFactor;
+		private static readonly float s_originalTrackerChaseSpeedFactor = 0.02f;
+		public static void Postfix(ref DefaultPerks __instance, ref PerkObject ____scoutingTracker)
+        {
+			if ( false == ____scoutingTracker.SecondaryBonus.ApproximatelyEqualsTo(s_trackerChaseSpeedFactor) )
+            {
+				Traverse.Create(____scoutingTracker).Property("SecondaryBonus").SetValue(s_trackerChaseSpeedFactor);
+            }
+        }
+	}
+
 	//BuildingBoostAddMultiplier
 	[HarmonyPatch(typeof(BuildingHelper), "BoostBuildingProcessWithGold")]
 	public class BuildingHelper_BoostBuildingProcessWithGold
 	{
-		private static float cBuildingBoostAddMultiplier = Settings.CampaignSettings.BuildingBoostAddMultiplier;
+		private static readonly float cBuildingBoostAddMultiplier = Settings.CampaignSettings.BuildingBoostAddMultiplier;
 		private static bool m_isMultiplying = false;
 		public static bool Prefix(int gold, Town town)
 		{

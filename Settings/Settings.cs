@@ -75,6 +75,8 @@ namespace daat99
 		public bool AllowRecruitGarrison { get; private set; } = true;
 		public bool TransferWoundedFirst { get; private set; } = true;
 		public bool AnnounceTournamentsOnFinished { get; private set; } = true;
+		public bool AddLivingClanMembersEncyclopediaSorter { get; private set; } = true;
+		public float TrackerChaseSpeedFactor { get; private set; } = 0.02f;
 
 		public BattleHealSettings BattleHealSettings { get; private set; } = new BattleHealSettings();
 		public AgeSettings AgeSettings { get; private set; } = new AgeSettings();
@@ -148,7 +150,9 @@ namespace daat99
 				AllowRecruitGarrison = SettingsElement.ReadChildTextAs<bool>(nameof(AllowRecruitGarrison), AllowRecruitGarrison);
 				TransferWoundedFirst = SettingsElement.ReadChildTextAs<bool>(nameof(TransferWoundedFirst), TransferWoundedFirst);
 				AnnounceTournamentsOnFinished = SettingsElement.ReadChildTextAs<bool>(nameof(AnnounceTournamentsOnFinished), AnnounceTournamentsOnFinished);
-				
+				AddLivingClanMembersEncyclopediaSorter = SettingsElement.ReadChildTextAs<bool>(nameof(AddLivingClanMembersEncyclopediaSorter), AddLivingClanMembersEncyclopediaSorter);
+				TrackerChaseSpeedFactor = SettingsElement.ReadChildTextAs<float>(nameof(TrackerChaseSpeedFactor), TrackerChaseSpeedFactor);
+
 				BattleHealSettings = new BattleHealSettings(SettingsElement.GetFirstElementByName(nameof(BattleHealSettings)));
 				AgeSettings = new AgeSettings(SettingsElement.GetFirstElementByName(nameof(AgeSettings)));
 			}
